@@ -6,15 +6,39 @@ using System.Threading.Tasks;
 
 namespace MolkPackageQueue
 {
+
     public class Package
     {
+        public Priority Priority { get; }
+        private Payload Payload { get; }
+
         public Package(Priority priority)
         {
             Priority = priority;
             Payload = new Payload();
         }
-        public Priority Priority { get; }
-        public Payload Payload { get; }
+
+        public override string ToString()
+        {
+            return $"{Payload} with {Priority} priority";
+        }
+    }
+
+    public class Payload 
+    {
+        private static int count = 1;
+        private string PackageName { get; }
+
+        public Payload()
+        {
+            PackageName = "Package nr: " + count;
+            count++;
+        }
+
+        public override string ToString()
+        {
+            return $"{PackageName}";
+        }
     }
 
     public enum Priority 
@@ -22,10 +46,5 @@ namespace MolkPackageQueue
         Low = 0, 
         Medium = 1, 
         High = 2 
-    }
-
-    public class Payload 
-    {
-        string packageName = string.Empty; //Replace with a random name (string of letters) for each instance
     }
 }
