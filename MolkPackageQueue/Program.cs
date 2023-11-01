@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Implement MPS");
+            //tmp
             // Instantiate the MPS-PriorityQueue
             // Create a function to queue and dequeue packages according to the rules. 
             // Don´t forget the logging lists
