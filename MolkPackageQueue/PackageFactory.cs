@@ -9,9 +9,8 @@ namespace MolkPackageQueue
     class PackageFactory
     {
         Random randomizer = new Random();
-        public Package CreatePackage(Priority prio)
+        public static Package CreatePackage(Priority prio)
         {
-            //use randomizer to send in a prio-enum
             return new Package(prio);
         }
     }

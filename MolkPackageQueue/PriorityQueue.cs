@@ -6,19 +6,52 @@ using System.Threading.Tasks;
 
 namespace MolkPackageQueue
 {
-    public class PriorityQueue
+    public class PriorityQueue<T>
     {
-        Queue<Package> queueHigh = new Queue<Package>();
-        Queue<Package> queueMedium = new Queue<Package>();
-        Queue<Package> queueLow = new Queue<Package>();
+        public Queue<T> queueHigh = new Queue<T>();
+        public Queue<T> queueMedium = new Queue<T>();
+        public Queue<T> queueLow = new Queue<T>();
 
-        public void Enqueue(Package package)
+
+        public void Enqueue(T package)
         {
-            // do stuff
+            var packageItem = package as Package;
+            if (packageItem == null) throw new ArgumentException("Invalid package type");
+
+            if (packageItem.Priority == Priority.Low)
+            {
+                queueLow.Enqueue(package);
+            }
+            else if (packageItem.Priority == Priority.Medium)
+            {
+                queueMedium.Enqueue(package);
+            }
+            else
+            {
+                queueHigh.Enqueue(package);
+            }
+        
         }
-        public void Dequeue(Package package)
+
+
+        public T Dequeue()
         {
-            // do stuff
+            if (queueHigh.Count >0)
+            {
+                return queueHigh.Dequeue();
+            }
+            else if(queueMedium.Count >0)
+            {
+                return queueMedium.Dequeue();
+            }
+            else if (queueLow.Count >0)
+            {
+                return queueLow.Dequeue();
+            }
+            else
+            {
+                throw new InvalidOperationException("All queues are empty.");
+            }
         }
     }
 }
