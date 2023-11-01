@@ -1,16 +1,62 @@
-﻿namespace MolkPackageQueue
+﻿using System;
+using System.Collections.Generic;
+
+namespace MolkPackageQueue
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Implement MPS");
-            // Instantiate the MPS-PriorityQueue
-            // Create a function to queue and dequeue packages according to the rules. 
-            // Don´t forget the logging lists
-            // Print log for packages created in order of creation, with payload packageName and package priority
-            // Print log for packages handled (dequeue and add to logg), same content as above.
-            // No high prio should be in bottom of handled list, alla paket som skapas ska finnas i hanterad-listan.
+            List<Package> incomingPackages = new List<Package>();
+            List<Package> outgoingPackages = new List<Package>();
+            PriorityQueue priorityQueue = new PriorityQueue();
+            PackageFactory packageFactory = new PackageFactory();
+
+            int totalPackages = 0;
+
+            while (totalPackages < 50)
+            {
+                int packagesToCreate = new Random().Next(1, 11);
+                for (int i = 0; i < packagesToCreate; i++)
+                {
+                    Package newPackage = packageFactory.CreatePackage();
+                    priorityQueue.Enqueue(newPackage);
+                    incomingPackages.Add(newPackage);
+                }
+                totalPackages += packagesToCreate;
+
+                int packagesToDequeue = new Random().Next(1, 6);
+                for (int i = 0; i < packagesToDequeue; i++)
+                {
+                    Package dequeuedPackage = priorityQueue.Dequeue();
+                    if (dequeuedPackage != null)
+                    {
+                        outgoingPackages.Add(dequeuedPackage);
+                    }
+                }
+            }
+
+            while (true)
+            {
+                Package dequeuedPackage = priorityQueue.Dequeue();
+                if (dequeuedPackage == null)
+                {
+                    break;
+                }
+                outgoingPackages.Add(dequeuedPackage);
+            }
+
+            Console.WriteLine("Inkommande ordning:");
+            foreach (var package in incomingPackages)
+            {
+                Console.WriteLine($"Prio: {package.Priority}, Payload: {package.Payload.Empty}");
+            }
+
+            Console.WriteLine("Utgående ordning:");
+            foreach (var package in outgoingPackages)
+            {
+                Console.WriteLine($"Prio: {package.Priority}, Payload: {package.Payload.Empty}");
+            }
         }
     }
 }
