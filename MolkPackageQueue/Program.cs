@@ -12,36 +12,30 @@
             PriorityQueue priorityQueue = new PriorityQueue();
 
             // Creates a list of random number of packages with randomized priority and Payload
-            inComming = recivePackage.ReciveIncomming();
+
             Console.WriteLine();
 
-            // Sorts the incoming list by priority
-            var sortedPackages = inComming.OrderByDescending(p => p.Priority).ToList();
-
-            numberOfOrderProcessed = inComming.Count;
-
             // Program loop
-            while (numberOfOrderProcessed > 0)
+            while (numberOfOrderProcessed <= 50)
             {
-                if(sortedPackages.Count > 0)
+
+                if(inComming.Count < 50)
                 {
-                    List<Package> sendToEnqueu = RecivePackage.GetRandomItems(sortedPackages, rnd.Next(1,11));
-                    //List<Package> sendToEnqueu = RecivePackage.GetRandomNumberOfItems(sortedPackages);
-                    Console.WriteLine($"Sending {sendToEnqueu.Count} packages for proccesing");
-                    priorityQueue.ProcessingPackage(sendToEnqueu);
-                    Task.Delay(1000).Wait();
+                    inComming = recivePackage.ReciveIncomming(rnd.Next(1,11));
+                    Console.WriteLine($"Sending {inComming.Count} packages for proccesing");
+                    priorityQueue.ProcessingPackage(inComming);
                 }
                 else
                 {
                     Console.WriteLine("No more Incoming orders....");
                     priorityQueue.Dequeue();
-                    Task.Delay(1000).Wait();
                 }
 
             }
             Console.WriteLine();
             priorityQueue.DisplayAllOutgoing();
         }
+
         
     }
 }

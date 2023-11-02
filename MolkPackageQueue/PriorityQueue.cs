@@ -38,23 +38,30 @@ namespace MolkPackageQueue
                     Package packages = queueHigh.Dequeue();
                     AddProccesPackage(packages);
                     numberOfDequeu++;
-                    Program.numberOfOrderProcessed--;
+                    Program.numberOfOrderProcessed++;
                 }
                 else if (queueMedium.Count > 0)
                 {
                     Package packages = queueMedium.Dequeue();
                     AddProccesPackage(packages);
                     numberOfDequeu++;
-                    Program.numberOfOrderProcessed--;
+                    Program.numberOfOrderProcessed++;
                 }
                 else if (queueLow.Count > 0)
                 {
                     Package packages = queueLow.Dequeue();
                     AddProccesPackage(packages);
                     numberOfDequeu++;
-                    Program.numberOfOrderProcessed--;
+                    Program.numberOfOrderProcessed++;
+                }
+                else
+                {
+                    Console.WriteLine("No more packages.....");
+                    numberOfDequeu++;
+                    Program.numberOfOrderProcessed++;
                 }
             }
+            Console.WriteLine();
         }
 
         // Adds all outgoing packages to a list of proccesed packages
