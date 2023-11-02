@@ -26,7 +26,7 @@ namespace MolkPackageQueue
 
     public class Payload 
     {
-        public string packageName { get; set; } //Replace with a random name (string of letters) for each instance
+        public string packageName { get;} 
 
         public Payload()
         {
@@ -46,6 +46,10 @@ namespace MolkPackageQueue
             }
 
             return new string(randomLetters);
+        }
+        public override string ToString()
+        {
+            return packageName;
         }
     }
    

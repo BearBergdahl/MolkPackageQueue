@@ -13,13 +13,11 @@ namespace MolkPackageQueue
         Queue<Package> queueMedium = new Queue<Package>();
         Queue<Package> queueLow = new Queue<Package>();
 
-        Queue<Package> queue = new Queue<Package>();
-        List<Package> finishList = new List<Package>();
+        List<Package> proccesedPackage = new List<Package>();
 
 
         public void Enqueue(Package package)
         {
-            Console.WriteLine($"Adding packege to queue.....{package.Priority}");
             if(package.Priority == Priority.High)
                 queueHigh.Enqueue(package);
             if(package.Priority == Priority.Low)
@@ -29,36 +27,70 @@ namespace MolkPackageQueue
         }
         public void Dequeue(Package package)
         {
-            
+            proccesedPackage.Add(package);
+            Console.WriteLine($"Proccesing package {package.Payload} is complete");
         }
         public void ProcessingPackage(List<Package> package)
         {
-            foreach(Package p in package)
-            {
-                Console.WriteLine($"Incoming package.......{p.Priority}");
-            }
-            
-            //Console.WriteLine("Sorting package in order by priority");
-
-            //List<Package> SortedList = package.OrderByDescending(o => o.Priority).ToList();
 
             foreach (Package p in package)
             {
                 Enqueue(p);
             }
+            DisplayList(queueHigh);
+            DisplayList(queueMedium);
+            DisplayList(queueLow);
 
-            while (queue.Count > 0)
+
+            //while (queue.Count > 0)
+            //{
+            //    Console.WriteLine($"Proccesing package.....");
+
+            //    finishList.Add(queue.Dequeue());
+            //}
+
+            //foreach (Package p in finishList)
+            //{
+            //    Console.WriteLine(p.Priority);
+            //}
+        }
+        public void ProcessPackage()
+        {
+            if (queueHigh.Count < 0)
             {
-                Console.WriteLine($"Proccesing package.....");
-
-                finishList.Add(queue.Dequeue());
+                queueHigh.Dequeue();
+                foreach (Package p in queueHigh)
+                {
+                    Dequeue(p);
+                    
+                }
             }
-
-            foreach (Package p in finishList)
+            else if (queueMedium.Count < 0)
             {
-                Console.WriteLine(p.Priority);
+                foreach (Package p in queueMedium)
+                {
+                    Dequeue(p);
+                }
             }
-
+            else if (queueLow.Count < 0)
+            {
+                foreach (Package p in queueLow)
+                {
+                    Dequeue(p);
+                }
+            }
+            else
+                Console.WriteLine("No more packaged to process");
+                
+        }
+        public void DisplayList(Queue<Package> packages)
+        {
+            int index = 1;
+            foreach(Package p in packages)
+            {
+                Console.WriteLine($"{index} : {p.Priority}");
+                index++;
+            }
         }
     }
 }

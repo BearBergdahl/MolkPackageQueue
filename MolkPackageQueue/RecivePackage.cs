@@ -8,7 +8,7 @@ namespace MolkPackageQueue
 {
     internal class RecivePackage
     {
-        List<Package> incommingPackage = new List<Package>();
+       
         PackageFactory factory = new PackageFactory();
 
         // Plays the Reciver of the code that fetch orders from custommers Online
@@ -18,7 +18,8 @@ namespace MolkPackageQueue
             
             while(incomming.Count < 50)
             {
-                incomming.Add(new Package(priority:Priority.Low));
+                Package package = factory.CreatePackage();
+                incomming.Add(package);
             }
             return incomming;
         }
