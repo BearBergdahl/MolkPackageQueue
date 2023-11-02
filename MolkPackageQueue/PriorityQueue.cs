@@ -46,5 +46,10 @@ namespace MolkPackageQueue
                 throw new InvalidOperationException("No packages are available in the queue.");
             }
         }
+
+        public bool HasPackages()
+        {
+            return queueHigh.Count > 0 || queueMedium.Count > 0 || queueLow.Count > 0;
+        }
     }
 }
