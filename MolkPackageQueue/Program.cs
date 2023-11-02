@@ -25,8 +25,8 @@
             {
                 if(sortedPackages.Count > 0)
                 {
-                    //List<Package> sendToEnqueu = RecivePackage.GetRandomItems(sortedPackages, rnd.Next(1,11));
-                    List<Package> sendToEnqueu = RecivePackage.GetRandomNumberOfItems(sortedPackages);
+                    List<Package> sendToEnqueu = RecivePackage.GetRandomItems(sortedPackages, rnd.Next(1,11));
+                    //List<Package> sendToEnqueu = RecivePackage.GetRandomNumberOfItems(sortedPackages);
                     Console.WriteLine($"Sending {sendToEnqueu.Count} packages for proccesing");
                     priorityQueue.ProcessingPackage(sendToEnqueu);
                     Task.Delay(1000).Wait();
