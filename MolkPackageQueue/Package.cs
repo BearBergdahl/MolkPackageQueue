@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MolkPackageQueue
 {
+
     public class Package
     {
         public Package(Priority priority)
@@ -24,8 +25,27 @@ namespace MolkPackageQueue
         High = 2 
     }
 
-    public class Payload 
+    public class Payload
     {
-        string packageName = string.Empty; //Replace with a random name (string of letters) for each instance
+        private static Random random = new Random();
+        public string PackageName { get; private set; }
+
+        public Payload()
+        {
+            PackageName = GenerateRandomName();
+        }
+
+        private string GenerateRandomName(int length = 10)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            StringBuilder result = new StringBuilder(length);
+            for (int i = 0; i < length; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+            return result.ToString();
+        }
     }
+
+
 }
