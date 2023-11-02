@@ -31,7 +31,7 @@ namespace MolkPackageQueue
             Random random = new Random();
             int numberOfDequeu = 0;
 
-            while (numberOfDequeu < random.Next(1, 6))
+            while (numberOfDequeu < random.Next(1, 7))
             {
                 if (Program.numberOfOrderProcessed >= 50)
                     break;
@@ -74,7 +74,6 @@ namespace MolkPackageQueue
             {
                 Enqueue(p);
             }
-            Dequeue();
         }
        
         // Displays all Outgoing packages in list
