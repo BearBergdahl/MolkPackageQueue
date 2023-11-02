@@ -11,8 +11,6 @@
             RecivePackage recivePackage = new RecivePackage();
             PriorityQueue priorityQueue = new PriorityQueue();
 
-            // Creates a list of random number of packages with randomized priority and Payload
-
             Console.WriteLine();
 
             // Program loop
@@ -25,12 +23,6 @@
                     Console.WriteLine($"Sending {inComming.Count} packages for proccesing");
                     priorityQueue.ProcessingPackage(inComming);
                 }
-                else
-                {
-                    Console.WriteLine("No more Incoming orders....");
-                    priorityQueue.Dequeue();
-                }
-
             }
             Console.WriteLine();
             priorityQueue.DisplayAllOutgoing();
