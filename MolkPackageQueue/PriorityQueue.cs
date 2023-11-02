@@ -8,14 +8,13 @@ namespace MolkPackageQueue
 {
     public class PriorityQueue
     {
-        public static List<Package> proccesedPackage = new List<Package>();
 
         Queue<Package> queueHigh = new Queue<Package>();
         Queue<Package> queueMedium = new Queue<Package>();
         Queue<Package> queueLow = new Queue<Package>();
+        List<Package> outgoingPackages = new List<Package>();
 
-        List<Package> ProccesedPackages = new List<Package>();
-
+        // Enqueue packages based on its priority
         public void Enqueue(Package package)
         {
             if(package.Priority == Priority.High)
@@ -26,6 +25,7 @@ namespace MolkPackageQueue
                 queueMedium.Enqueue(package);
         }
 
+        // Dequeue random number of packages every time its called, removes a system check varibles value by number of dequeu packages
         public void Dequeue()
         {
             Random random = new Random();
@@ -37,7 +37,6 @@ namespace MolkPackageQueue
                 {
                     Package packages = queueHigh.Dequeue();
                     AddProccesPackage(packages);
-                    Console.WriteLine($"\tPackage sending to Outgoing...{packages.Payload}:{packages.Priority}");
                     numberOfDequeu++;
                     Program.numberOfOrderProcessed--;
                 }
@@ -45,7 +44,6 @@ namespace MolkPackageQueue
                 {
                     Package packages = queueMedium.Dequeue();
                     AddProccesPackage(packages);
-                    Console.WriteLine($"\tPackage sending to Outgoing...{packages.Payload}:{packages.Priority}");
                     numberOfDequeu++;
                     Program.numberOfOrderProcessed--;
                 }
@@ -53,18 +51,20 @@ namespace MolkPackageQueue
                 {
                     Package packages = queueLow.Dequeue();
                     AddProccesPackage(packages);
-                    Console.WriteLine($"\tPackage sending to Outgoing...{packages.Payload}:{packages.Priority}");
                     numberOfDequeu++;
                     Program.numberOfOrderProcessed--;
                 }
             }
         }
 
+        // Adds all outgoing packages to a list of proccesed packages
         public void AddProccesPackage(Package package)
         {
-            proccesedPackage.Add(package);
+            Console.WriteLine($"\tPackage sending to Outgoing...{package.Payload}:{package.Priority}");
+            outgoingPackages.Add(package);
         }
 
+        // Handels the procces of sending package to Enqueue and starts a Dequeu while running!
         public void ProcessingPackage(List<Package> package)
         {
             foreach (Package p in package)
@@ -74,11 +74,12 @@ namespace MolkPackageQueue
             Dequeue();
         }
        
+        // Displays all Outgoing packages in list
         public void DisplayAllOutgoing()
         {
             int index = 1;
-            Console.WriteLine($"Total Outgoing Packages today => {proccesedPackage.Count}");
-            foreach(Package package in proccesedPackage)
+            Console.WriteLine($"Total Outgoing Packages today => {outgoingPackages.Count}");
+            foreach(Package package in outgoingPackages)
             {
                 Console.WriteLine($"{index} : {package.Payload} : {package.Priority}");
                 index++;
