@@ -53,7 +53,7 @@ namespace MolkPackageQueue
 
                 //Dequeue 1-5 packages
                 int packagesToProcess = randomizer.Next(1, 6);
-                Debug.WriteLine($"Processing {packagesToProcess} packages");
+                Debug.WriteLine($"Processing {packagesToProcess} packages"); //Just to see if the right amount of packages are processed and in the right order
                 while (packagesToProcess > 0 && priorityQueue.HasPackages())
                 {
                     Package processedPackage = priorityQueue.Dequeue();
@@ -63,6 +63,8 @@ namespace MolkPackageQueue
             }
 
             //Dequeue remaining packages
+            Debug.WriteLine($"Total amount of packages: {totalPackagesCreated}");
+            Debug.WriteLine($"Packages left to process: {incomingPackages.Count - completedPackages.Count}");
             while (priorityQueue.HasPackages())
             {
                 Package processedPackage = priorityQueue.Dequeue();
