@@ -46,7 +46,7 @@ namespace MolkPackageQueue
             return selectedPackage;
         }
 
-        // Picks random number of packages from list and returns a new list with packages => 
+        // Picks random number of packages from list and returns a new list with packages => This is correct i think based on assingment
         public static List<Package> GetRandomNumberOfItems(List<Package> packages)
         {
             List<Package> selectedPackage = new List<Package>();
