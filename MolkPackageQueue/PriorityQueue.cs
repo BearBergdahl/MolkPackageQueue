@@ -20,11 +20,16 @@ namespace MolkPackageQueue
         public void Enqueue(Package package)
         {
             Console.WriteLine($"Adding packege to queue.....{package.Priority}");
-            queue.Enqueue(package);
+            if(package.Priority == Priority.High)
+                queueHigh.Enqueue(package);
+            if(package.Priority == Priority.Low)
+                queueLow.Enqueue(package);
+            if(package.Priority == Priority.Medium)
+                queueMedium.Enqueue(package);
         }
         public void Dequeue(Package package)
         {
-
+            
         }
         public void ProcessingPackage(List<Package> package)
         {
@@ -33,11 +38,11 @@ namespace MolkPackageQueue
                 Console.WriteLine($"Incoming package.......{p.Priority}");
             }
             
-            Console.WriteLine("Sorting package in order by priority");
+            //Console.WriteLine("Sorting package in order by priority");
 
-            List<Package> SortedList = package.OrderByDescending(o => o.Priority).ToList();
+            //List<Package> SortedList = package.OrderByDescending(o => o.Priority).ToList();
 
-            foreach (Package p in SortedList)
+            foreach (Package p in package)
             {
                 Enqueue(p);
             }

@@ -14,22 +14,21 @@
             // No high prio should be in bottom of handled list, alla paket som skapas ska finnas i hanterad-listan.
             List<Package> inComming = new List<Package>();
             PriorityQueue priorityQueue = new PriorityQueue();
+            RecivePackage recivePackage = new RecivePackage();
 
-            Package package2 = new Package(priority: Priority.Medium);
-            Package package1 = new Package(priority:Priority.Low);
-            Package package3 = new Package(priority: Priority.High);
-            Package package4 = new Package(priority: Priority.Low);
+            inComming = recivePackage.ReciveIncomming();
+            int index = 1;
+            foreach (Package p in inComming)
+            {
+                Console.WriteLine($"{index}:{p.Priority}");
+                index++;
+            }
 
-
-            inComming.Add(package1);
-            inComming.Add(package2);
-            inComming.Add(package3);
-            inComming.Add(package4);
 
             // A way to sort incoming orders in a list by Priority!!!
-            List<Package> SortedList = inComming.OrderByDescending(o => o.Priority).ToList();
+            //List<Package> SortedList = inComming.OrderByDescending(o => o.Priority).ToList();
 
-            priorityQueue.ProcessingPackage(inComming);
+            //priorityQueue.ProcessingPackage(inComming);
            
 
         }

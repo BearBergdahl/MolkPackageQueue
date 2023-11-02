@@ -12,6 +12,7 @@ namespace MolkPackageQueue
         public Package CreatePackage(Priority prio)
         {
             //use randomizer to send in a prio-enum
+            prio = (Priority)randomizer.Next(1,3);
             return new Package(prio);
         }
     }
