@@ -8,13 +8,13 @@ namespace MolkPackageQueue
 {
     public class PriorityQueue
     {
-        //Add Comments
+        public static List<Package> proccesedPackage = new List<Package>();
+
         Queue<Package> queueHigh = new Queue<Package>();
         Queue<Package> queueMedium = new Queue<Package>();
         Queue<Package> queueLow = new Queue<Package>();
 
-        List<Package> proccesedPackage = new List<Package>();
-
+        List<Package> ProccesedPackages = new List<Package>();
 
         public void Enqueue(Package package)
         {
@@ -25,70 +25,62 @@ namespace MolkPackageQueue
             if(package.Priority == Priority.Medium)
                 queueMedium.Enqueue(package);
         }
-        public void Dequeue(Package package)
+
+        public void Dequeue()
+        {
+            Random random = new Random();
+            int numberOfDequeu = 0;
+
+            while (numberOfDequeu < random.Next(1, 6))
+            {
+                if (queueHigh.Count > 0)
+                {
+                    Package packages = queueHigh.Dequeue();
+                    AddProccesPackage(packages);
+                    Console.WriteLine($"\tPackage sending to Outgoing...{packages.Payload}:{packages.Priority}");
+                    numberOfDequeu++;
+                    Program.numberOfOrderProcessed--;
+                }
+                else if (queueMedium.Count > 0)
+                {
+                    Package packages = queueMedium.Dequeue();
+                    AddProccesPackage(packages);
+                    Console.WriteLine($"\tPackage sending to Outgoing...{packages.Payload}:{packages.Priority}");
+                    numberOfDequeu++;
+                    Program.numberOfOrderProcessed--;
+                }
+                else if (queueLow.Count > 0)
+                {
+                    Package packages = queueLow.Dequeue();
+                    AddProccesPackage(packages);
+                    Console.WriteLine($"\tPackage sending to Outgoing...{packages.Payload}:{packages.Priority}");
+                    numberOfDequeu++;
+                    Program.numberOfOrderProcessed--;
+                }
+            }
+        }
+
+        public void AddProccesPackage(Package package)
         {
             proccesedPackage.Add(package);
-            Console.WriteLine($"Proccesing package {package.Payload} is complete");
         }
+
         public void ProcessingPackage(List<Package> package)
         {
-
             foreach (Package p in package)
             {
                 Enqueue(p);
             }
-            DisplayList(queueHigh);
-            DisplayList(queueMedium);
-            DisplayList(queueLow);
-
-
-            //while (queue.Count > 0)
-            //{
-            //    Console.WriteLine($"Proccesing package.....");
-
-            //    finishList.Add(queue.Dequeue());
-            //}
-
-            //foreach (Package p in finishList)
-            //{
-            //    Console.WriteLine(p.Priority);
-            //}
+            Dequeue();
         }
-        public void ProcessPackage()
-        {
-            if (queueHigh.Count < 0)
-            {
-                queueHigh.Dequeue();
-                foreach (Package p in queueHigh)
-                {
-                    Dequeue(p);
-                    
-                }
-            }
-            else if (queueMedium.Count < 0)
-            {
-                foreach (Package p in queueMedium)
-                {
-                    Dequeue(p);
-                }
-            }
-            else if (queueLow.Count < 0)
-            {
-                foreach (Package p in queueLow)
-                {
-                    Dequeue(p);
-                }
-            }
-            else
-                Console.WriteLine("No more packaged to process");
-                
-        }
-        public void DisplayList(Queue<Package> packages)
+       
+        public void DisplayAllOutgoing()
         {
             int index = 1;
-            foreach(Package p in packages)
+            Console.WriteLine($"Total Outgoing Packages today => {proccesedPackage.Count}");
+            foreach(Package package in proccesedPackage)
             {
-                Console.WriteLine($"{index} : {p.Priority}");
+                Console.WriteLine($"{index} : {package.Payload} : {package.Priority}");
                 index++;
             }
         }
