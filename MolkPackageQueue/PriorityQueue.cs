@@ -33,6 +33,8 @@ namespace MolkPackageQueue
 
             while (numberOfDequeu < random.Next(1, 6))
             {
+                if (Program.numberOfOrderProcessed >= 50)
+                    break;
                 if (queueHigh.Count > 0)
                 {
                     Package packages = queueHigh.Dequeue();
@@ -51,12 +53,6 @@ namespace MolkPackageQueue
                 {
                     Package packages = queueLow.Dequeue();
                     AddProccesPackage(packages);
-                    numberOfDequeu++;
-                    Program.numberOfOrderProcessed++;
-                }
-                else
-                {
-                    Console.WriteLine("No more packages.....");
                     numberOfDequeu++;
                     Program.numberOfOrderProcessed++;
                 }

@@ -14,7 +14,7 @@
             Console.WriteLine();
 
             // Program loop
-            while (numberOfOrderProcessed <= 50)
+            while (numberOfOrderProcessed < 50)
             {
                 inComming = recivePackage.ReciveIncomming(rnd.Next(1,11));
                 Console.WriteLine($"Sending {inComming.Count} packages for proccesing");
