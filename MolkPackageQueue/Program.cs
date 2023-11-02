@@ -25,8 +25,8 @@
             {
                 if(sortedPackages.Count > 0)
                 {
-                    //List<Package> sendToEnqueu = GetRandomItems(inComming, rnd.Next(1,11));
-                    List<Package> sendToEnqueu = GetRandomNumberOfItems(sortedPackages);
+                    //List<Package> sendToEnqueu = RecivePackage.GetRandomItems(sortedPackages, rnd.Next(1,11));
+                    List<Package> sendToEnqueu = RecivePackage.GetRandomNumberOfItems(sortedPackages);
                     Console.WriteLine($"Sending {sendToEnqueu.Count} packages for proccesing");
                     priorityQueue.ProcessingPackage(sendToEnqueu);
                     Task.Delay(1000).Wait();
@@ -42,37 +42,6 @@
             Console.WriteLine();
             priorityQueue.DisplayAllOutgoing();
         }
-
-        // Picks random number of packages from list and returns a new list with packages => This is more fun
-        public static List<Package> GetRandomItems(List<Package> packages, int count)
-        {
-            Random random = new Random();
-            List<Package> selectedPackage = new List<Package>();
-
-            while (selectedPackage.Count < count && packages.Count > 0)
-            {
-                int randomIndex = random.Next(packages.Count);
-                Package selectedItem = packages[randomIndex];
-                selectedPackage.Add(selectedItem);
-                packages.Remove(selectedItem);
-            }
-            return selectedPackage;
-        }
-
-        // Picks random number of packages from list and returns a new list with packages => 
-        public static List<Package> GetRandomNumberOfItems(List<Package> packages)
-        {
-            List<Package> selectedPackage = new List<Package>();
-            Random random = new Random();
-            int itemCount = random.Next(1, packages.Count + 1);
-
-            for (int i = 0; i < itemCount && i < packages.Count; i++)
-            {
-                selectedPackage.Add(packages[i]);
-                packages.RemoveAt(i);
-            }
-
-            return selectedPackage;
-        }
+        
     }
 }
