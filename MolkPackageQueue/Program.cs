@@ -16,14 +16,11 @@
             // Program loop
             while (numberOfOrderProcessed <= 50)
             {
-
-                if(inComming.Count < 50)
-                {
-                    inComming = recivePackage.ReciveIncomming(rnd.Next(1,11));
-                    Console.WriteLine($"Sending {inComming.Count} packages for proccesing");
-                    priorityQueue.ProcessingPackage(inComming);
-                }
+                inComming = recivePackage.ReciveIncomming(rnd.Next(1,11));
+                Console.WriteLine($"Sending {inComming.Count} packages for proccesing");
+                priorityQueue.ProcessingPackage(inComming);
             }
+
             Console.WriteLine();
             priorityQueue.DisplayAllOutgoing();
         }
