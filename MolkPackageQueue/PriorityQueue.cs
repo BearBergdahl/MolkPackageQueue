@@ -26,35 +26,26 @@ namespace MolkPackageQueue
         }
 
         // Dequeue random number of packages every time its called, removes a system check varibles value by number of dequeu packages
-        public void Dequeue()
+        public void Dequeue(int randomNumber)
         {
-            Random random = new Random();
-            int numberOfDequeu = 0;
-
-            while (numberOfDequeu < random.Next(1, 7))
+            for(int i = 0; i < randomNumber; i++)
             {
-                if (Program.numberOfOrderProcessed >= 50)
-                    break;
+                if (queueLow.Count == 0 && Program.gotAllOrders == true)
+                    Program.clearAllQueus = true;
                 if (queueHigh.Count > 0)
                 {
                     Package packages = queueHigh.Dequeue();
                     AddProccesPackage(packages);
-                    numberOfDequeu++;
-                    Program.numberOfOrderProcessed++;
                 }
                 else if (queueMedium.Count > 0)
                 {
                     Package packages = queueMedium.Dequeue();
                     AddProccesPackage(packages);
-                    numberOfDequeu++;
-                    Program.numberOfOrderProcessed++;
                 }
                 else if (queueLow.Count > 0)
                 {
                     Package packages = queueLow.Dequeue();
                     AddProccesPackage(packages);
-                    numberOfDequeu++;
-                    Program.numberOfOrderProcessed++;
                 }
             }
             Console.WriteLine();

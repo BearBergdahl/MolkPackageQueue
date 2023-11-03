@@ -2,7 +2,8 @@
 {
     internal class Program
     {
-        public static int numberOfOrderProcessed = 0;
+        public static bool gotAllOrders = false;
+        public static bool clearAllQueus = false;
 
         static void Main(string[] args)
         {
@@ -15,7 +16,7 @@
             Console.WriteLine();
 
             // Program loop
-            while (numberOfOrderProcessed < 50)
+            while (!clearAllQueus)
             {
                 if(recived.Count < 50) 
                 {
@@ -23,13 +24,15 @@
                     recived.AddRange(inComming);
                     Console.WriteLine($"Sending {inComming.Count} packages for proccesing");
                     priorityQueue.ProcessingPackage(inComming);
-                    priorityQueue.Dequeue();
+                    priorityQueue.Dequeue(rnd.Next(1,6));
                 }
                 else
-                    priorityQueue.Dequeue();
-               
+                {
+                    gotAllOrders = true;
+                    priorityQueue.Dequeue(rnd.Next(1, 6));
+                }
             }
-
+            Console.WriteLine(recived.Count) ;
             Console.WriteLine();
             priorityQueue.DisplayAllOutgoing();
         }
