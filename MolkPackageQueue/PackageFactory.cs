@@ -9,10 +9,20 @@ namespace MolkPackageQueue
     class PackageFactory
     {
         Random randomizer = new Random();
-        public Package CreatePackage(Priority prio)
+
+        public Package CreatePackage()
         {
-            //use randomizer to send in a prio-enum
-            return new Package(prio);
+            // Get all values of the Priority enum
+            Array values = Enum.GetValues(typeof(Priority));
+
+            // Select a random index
+            int randomIndex = randomizer.Next(values.Length);
+
+            // Get the Priority at the random index
+            Priority randomPriority = (Priority)values.GetValue(randomIndex);
+
+            // Use the random Priority to create a new Package
+            return new Package(randomPriority);
         }
     }
 }
