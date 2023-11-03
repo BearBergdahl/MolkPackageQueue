@@ -1,24 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MolkPackageQueue
 {
-    public class PriorityQueue
+    public class PriorityQueue<T>
     {
-        Queue<Package> queueHigh = new Queue<Package>();
-        Queue<Package> queueMedium = new Queue<Package>();
-        Queue<Package> queueLow = new Queue<Package>();
+        private Queue<T> queueHigh = new Queue<T>();
+        private Queue<T> queueMedium = new Queue<T>();
+        private Queue<T> queueLow = new Queue<T>();
 
-        public void Enqueue(Package package)
+        public List<T> IncomingLog { get; private set; } = new List<T>();
+        public List<T> OutgoingLog { get; private set; } = new List<T>();
+
+        public void Enqueue(T package, Priority priority)
         {
-            // do stuff
+            IncomingLog.Add(package);
+
+            switch (priority)
+            {
+                case Priority.High:
+                    queueHigh.Enqueue(package);
+                    break;
+                case Priority.Medium:
+                    queueMedium.Enqueue(package);
+                    break;
+                case Priority.Low:
+                    queueLow.Enqueue(package);
+                    break;
+            }
         }
-        public void Dequeue(Package package)
+
+        public T? Dequeue()
         {
-            // do stuff
+            T? package = default(T);
+
+            if (queueHigh.Count > 0)
+            {
+                package = queueHigh.Dequeue();
+            }
+            else if (queueMedium.Count > 0)
+            {
+                package = queueMedium.Dequeue();
+            }
+            else if (queueLow.Count > 0)
+            {
+                package = queueLow.Dequeue();
+            }
+
+            if (package != null)
+            {
+                OutgoingLog.Add(package);
+            }
+            return package;
         }
     }
 }
