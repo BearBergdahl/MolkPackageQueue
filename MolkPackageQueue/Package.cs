@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MolkPackageQueue
@@ -17,15 +18,29 @@ namespace MolkPackageQueue
         public Payload Payload { get; }
     }
 
-    public enum Priority 
-    { 
-        Low = 0, 
-        Medium = 1, 
-        High = 2 
+    public enum Priority
+    {
+        Low = 0,
+        Medium = 1,
+        High = 2,
     }
 
-    public class Payload 
+    public class Payload
     {
-        string packageName = string.Empty; //Replace with a random name (string of letters) for each instance
+        private static Random randomizer = new Random();
+        public string PackageName { get; private set; }
+
+
+        public Payload()
+        {
+            PackageName = GenerateRandomName(10); // Generates a random name of 10 characters
+        }
+
+        private static string GenerateRandomName(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";            
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[randomizer.Next(s.Length)]).ToArray());
+        }
     }
 }
