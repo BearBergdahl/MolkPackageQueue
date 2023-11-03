@@ -6,26 +6,41 @@ using System.Threading.Tasks;
 
 namespace MolkPackageQueue
 {
-    public class Package
+    public class Package : IPrioritizable
     {
+        /// <summary>
+        /// Represents a package with a specified priority level and payload.
+        /// </summary>
         public Package(Priority priority)
         {
             Priority = priority;
             Payload = new Payload();
+            CreatedTimestamp = DateTime.Now; // Add created timestamp
         }
-        public Priority Priority { get; }
+
+        public Priority Priority { get; set; }
         public Payload Payload { get; }
+        public DateTime CreatedTimestamp { get; }
+        public DateTime? SentTimestamp { get; set; }
     }
 
+    /// <summary>
+    /// Represents the priority levels for packages.
+    /// </summary>
     public enum Priority 
     { 
-        Low = 0, 
-        Medium = 1, 
-        High = 2 
+        High,
+        Medium,
+        Low
     }
 
-    public class Payload 
+    public class Payload
     {
-        string packageName = string.Empty; //Replace with a random name (string of letters) for each instance
+        public string PackageName { get; }
+
+        public Payload()
+        {
+            PackageName = RandomUtility.GenerateRandomName(10);
+        }
     }
 }
