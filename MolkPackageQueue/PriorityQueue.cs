@@ -87,6 +87,12 @@ namespace MolkPackageQueue
             while (queueHigh.Count > 0 || queueLow.Count > 0 || queueMedium.Count > 0)
             {
                 int sendPackage = random.Next(1, 6);
+
+                // Send last packages instantly if last packages are less than 6
+                if (queueHigh.Count + queueMedium.Count + queueLow.Count < 6)
+                {
+                    sendPackage = queueHigh.Count + queueMedium.Count + queueLow.Count;
+                }
                 Console.WriteLine("");
                 Console.WriteLine($"{sendPackage} sends");
                 Console.WriteLine("");
