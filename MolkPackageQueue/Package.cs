@@ -8,6 +8,7 @@ namespace MolkPackageQueue
 {
     public class Package
     {
+        public Package() { }
         public Package(Priority priority)
         {
             Priority = priority;
@@ -26,6 +27,10 @@ namespace MolkPackageQueue
 
     public class Payload 
     {
-        string packageName = string.Empty; //Replace with a random name (string of letters) for each instance
+        public string PackageName { get; } 
+        public Payload() 
+        {
+            PackageName = Guid.NewGuid().ToString();
+        }
     }
 }

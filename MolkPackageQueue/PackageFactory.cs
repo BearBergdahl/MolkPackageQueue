@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,13 @@ namespace MolkPackageQueue
 {
     class PackageFactory
     {
-        Random randomizer = new Random();
-        public Package CreatePackage(Priority prio)
+        public List<Package> SentPackagesList2 = new List<Package>();
+        public Package CreatePackage()
         {
-            //use randomizer to send in a prio-enum
+            Priority prio = new Priority();
+            Random randomizer = new Random();
+            Array enums = Enum.GetValues(typeof(Priority));
+            prio = (Priority)randomizer.Next(0, enums.Length);
             return new Package(prio);
         }
     }
