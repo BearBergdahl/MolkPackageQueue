@@ -1,10 +1,29 @@
-﻿namespace MolkPackageQueue
+﻿using System;
+using System.Collections.Generic;
+
+namespace MolkPackageQueue
 {
-    internal class Program
+    internal static class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Implement MPS");
+            Console.WriteLine("  *** PACKAGES *** \n");
+            PackageFactory packageFactory = new PackageFactory();
+            PriorityQueue priorityQueue = new PriorityQueue();
+            for (int i = 0; i < 50; i++)
+            {
+                Package myPackage = packageFactory.CreatePackage();
+                priorityQueue.PutPackageInQueue(myPackage);
+                // Console.WriteLine(myPackage.Payload.packageName);               
+            }
+            Console.WriteLine(" [Enqued 50 packages]");
+            for (int j = 0; j < 50; j++)
+            {             
+                priorityQueue.RemovePackageFromQueue();              
+            }
+            Console.WriteLine(" [Dequed 50 packages]");
+
+
             // Instantiate the MPS-PriorityQueue
             // Create a function to queue and dequeue packages according to the rules. 
             // Don´t forget the logging lists
