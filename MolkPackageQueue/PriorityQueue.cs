@@ -14,7 +14,7 @@ namespace MolkPackageQueue
 
         public void Enqueue(Package package)
         {
-            switch(package.Priority)
+            switch (package.Priority)
             {
                 case Priority.High:
                     queueHigh.Enqueue(package);

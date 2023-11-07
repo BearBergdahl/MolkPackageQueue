@@ -9,10 +9,11 @@ namespace MolkPackageQueue
     class PackageFactory
     {
         Random randomizer = new Random();
-        
+
         public Package CreatePackage()
         {
-            Priority priority = (Priority)randomizer.Next(0, 3); // Random priority from 0 to 2
+            // Randomly select a priority level for the package
+            Priority priority = (Priority)randomizer.Next(0, 3);
             return new Package(priority);
         }
     }

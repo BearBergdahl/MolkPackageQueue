@@ -47,7 +47,7 @@
                         break; // No more packages to process
                     }
                 }
-            }
+                            }
 
             // Continue processing until all queues are empty
             Package remainingPackage;
@@ -56,14 +56,14 @@
                 handledLog.Add(remainingPackage);
             }
 
-            // Prints incoming packages
+            // Print incoming packages
             Console.WriteLine("\nIncoming Packages:");
             foreach (var package in incomingLog)
             {
                 Console.WriteLine($"Package Name: {package.Payload.PackageName}, Priority: {package.Priority}");
             }
 
-            // Prints handled packages
+            // Print handled packages with timestamp
             Console.WriteLine("\nHandled Packages:");
             foreach (var package in handledLog)
             {

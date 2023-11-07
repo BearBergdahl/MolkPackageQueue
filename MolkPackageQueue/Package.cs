@@ -19,22 +19,19 @@ namespace MolkPackageQueue
         public Priority Priority { get; }
         public Payload Payload { get; }
 
-            private static string GenerateRandomName()
+        private static string GenerateRandomName()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, 5).Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
-
-
-    public enum Priority 
-    { 
-        Low = 0, 
-        Medium = 1, 
-        High = 2 
+    public enum Priority
+    {
+        Low = 0,
+        Medium = 1,
+        High = 2
     }
-
-    public class Payload 
+    public class Payload
     {
         public string PackageName { get; }
 
