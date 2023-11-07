@@ -14,11 +14,34 @@ namespace MolkPackageQueue
 
         public void Enqueue(Package package)
         {
-            // do stuff
+            switch (package.Priority)
+            {
+                case Priority.High:
+                    queueHigh.Enqueue(package);
+                    break;
+                case Priority.Medium:
+                    queueMedium.Enqueue(package);
+                    break;
+                case Priority.Low:
+                    queueLow.Enqueue(package);
+                    break;
+            }
         }
-        public void Dequeue(Package package)
+        public Package Dequeue()
         {
-            // do stuff
+            if (queueHigh.Any())
+            {
+                return queueHigh.Dequeue();
+            }
+            else if (queueMedium.Any())
+            {
+                return queueMedium.Dequeue();
+            }
+            else if (queueLow.Any())
+            {
+                return queueLow.Dequeue();
+            }
+            return null; // If there is no packages to dequeue
         }
     }
 }
