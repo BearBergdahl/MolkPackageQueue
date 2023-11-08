@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,19 @@ namespace MolkPackageQueue
 
     public class Payload 
     {
-        string packageName = string.Empty; //Replace with a random name (string of letters) for each instance
+        string packageName = string.Empty; 
+        public string Content { get; set; }
+        public Payload()
+        {
+            Content = GenerateRandomText();
+        }
+
+        private string GenerateRandomText()
+        {
+            const string words = "sport,medicine,clothes,shoes,protein,food,office"; 
+            var random = new Random();
+            string[] wordArray = words.Split(',');
+            return wordArray[random.Next(wordArray.Length)];
+        }
     }
 }
